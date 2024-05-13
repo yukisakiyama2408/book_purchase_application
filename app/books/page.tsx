@@ -1,5 +1,10 @@
-const BookIndex = () => {
-  return <>aa</>;
+import BookIndex from "./book-index";
+const Books = () => {
+  return (
+    <>
+      <BookIndex />
+    </>
+  );
 };
 
-export default BookIndex;
+export default Books;
