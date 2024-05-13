@@ -16,7 +16,6 @@ const BookIndex = () => {
     };
     fetchBooks();
   }, []);
-  console.log(books && books);
 
   return (
     <>
@@ -28,7 +27,13 @@ const BookIndex = () => {
             books.map((book: any) => {
               return (
                 <div key={book.id}>
-                  <div>{book.title}</div>
+                  <a target="_blank" href={book.purchase_url}>
+                    {book.title}
+                  </a>
+                  <div>
+                    <img src={book.image_url} />
+                  </div>
+                  <div>{book.comment}</div>
                 </div>
               );
             })}
