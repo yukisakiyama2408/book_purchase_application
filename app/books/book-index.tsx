@@ -8,7 +8,7 @@ const BookIndex = () => {
     const fetchBooks = async () => {
       const query = supabase
         .from("books")
-        .select("id,created_at,title,image_url,purchase_url,comment");
+        .select("id,created_at,title,author,image_url,purchase_url,comment");
       const { data: books } = await query;
       if (books) {
         setBooks(books);
