@@ -32,12 +32,14 @@ const ApiBookInput = (bookData: any) => {
                           src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
                             "dc:identifier"
                           ][0]._text.replace(/-/g, "")}.jpg`}
+                          alt="画像無し"
                         />
                       ) : (
                         <img
                           src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
                             "dc:identifier"
                           ]._text.replace(/-/g, "")}.jpg`}
+                          alt="画像無し"
                         />
                       )
                     ) : (

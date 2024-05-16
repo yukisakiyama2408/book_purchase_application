@@ -20,8 +20,6 @@ const BookIndex = () => {
   return (
     <>
       <div>
-        {" "}
-        <div>aaa</div>
         <div>
           {books &&
             books.map((book: any) => {
