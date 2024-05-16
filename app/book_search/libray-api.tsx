@@ -1,5 +1,15 @@
 import { useRouter } from "next/navigation";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TableContainer,
+  Paper,
+  Link,
+} from "@mui/material";
 const ApiBookInput = (bookData: any) => {
   const router = useRouter();
   // console.log(bookData.bookData);
@@ -17,48 +27,58 @@ const ApiBookInput = (bookData: any) => {
 
   return (
     <>
-      <div>
-        {bookData.bookData ? (
-          bookData.bookData.map((filterbook: any, index: number) => {
-            return (
-              <div key={index}>
-                <div key={filterbook["dc:title"]._text}>
-                  <div>{filterbook["dc:title"]._text}</div>
-                  <div>{filterbook.author._text}</div>
-                  <div>
-                    {filterbook["dc:identifier"] ? (
-                      filterbook["dc:identifier"].length > 0 ? (
-                        <img
-                          src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
-                            "dc:identifier"
-                          ][0]._text.replace(/-/g, "")}.jpg`}
-                          alt="画像無し"
-                        />
-                      ) : (
-                        <img
-                          src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
-                            "dc:identifier"
-                          ]._text.replace(/-/g, "")}.jpg`}
-                          alt="画像無し"
-                        />
-                      )
-                    ) : (
-                      <>画像がありません</>
-                    )}
-                  </div>
-                  <div>
-                    <Button onClick={() => handleSelectItem(filterbook)}>
-                      選択
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <></>
-        )}
-      </div>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 450 }} aria-label="simple table">
+          <TableBody>
+            {bookData.bookData ? (
+              bookData.bookData.map((filterbook: any, index: number) => {
+                return (
+                  <TableRow
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell align="left">
+                      <div>
+                        {filterbook["dc:identifier"] ? (
+                          filterbook["dc:identifier"].length > 0 ? (
+                            <img
+                              src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
+                                "dc:identifier"
+                              ][0]._text.replace(/-/g, "")}.jpg`}
+                              alt="画像無し"
+                            />
+                          ) : (
+                            <img
+                              src={`https://ndlsearch.ndl.go.jp/thumbnail/${filterbook[
+                                "dc:identifier"
+                              ]._text.replace(/-/g, "")}.jpg`}
+                              alt="画像無し"
+                            />
+                          )
+                        ) : (
+                          <>画像無し</>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell align="left">
+                      {" "}
+                      <div>{filterbook["dc:title"]._text}</div>
+                      <div>{filterbook.author._text}</div>
+                      <div>
+                        <Button onClick={() => handleSelectItem(filterbook)}>
+                          選択
+                        </Button>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };
