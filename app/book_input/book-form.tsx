@@ -8,22 +8,32 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/utils/supabase";
-import { purple } from "@mui/material/colors";
 const BookForm = () => {
   const router = useRouter();
   const [title, setTitle] = useState<string>("");
-  const [author, setAuthor] = useState<string>("");
-  const [image_url, setImage_Url] = useState<string>("");
+  const [author, setAuthor] = useState<string | null>("");
+  const [image_url, setImage_Url] = useState<string | null>("");
   const [purchase_url, setPurchased_Url] = useState<string>("");
   const [comment, setComment] = useState<string>("");
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    const titleFromQuery = query.get("title");
+    const authorFromQuery = query.get("author");
+    const imageUrlFromQuery = query.get("image_url");
+    if (titleFromQuery) {
+      setTitle(titleFromQuery);
+      setAuthor(authorFromQuery);
+      setImage_Url(imageUrlFromQuery);
+    }
+  }, []);
 
   const publishBookComment = async (
     title: string,
-    author: string,
-    image_url: string,
+    author: string | null,
+    image_url: string | null,
     purchase_url: string,
     comment: string
   ) => {
@@ -65,7 +75,7 @@ const BookForm = () => {
             <Grid item xs={12}>
               <TextField
                 type="text"
-                name="authort"
+                name="author"
                 label="著者"
                 fullWidth
                 multiline

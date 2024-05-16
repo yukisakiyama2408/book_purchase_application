@@ -1,5 +1,20 @@
+import { useRouter } from "next/navigation";
+import { Button } from "@mui/material";
 const ApiBookInput = (bookData: any) => {
-  console.log(bookData.bookData);
+  const router = useRouter();
+  // console.log(bookData.bookData);
+  const handleSelectItem = (item: any) => {
+    const imageIsbnUrl = item["dc:identifier"]
+      ? item["dc:identifier"].length > 0
+        ? item["dc:identifier"][0]._text.replace(/-/g, "")
+        : item["dc:identifier"]._text.replace(/-/g, "")
+      : null;
+    router.push(
+      `/book_input?title=${item["dc:title"]._text}}&author=${item.author._text}&image_url=https://ndlsearch.ndl.go.jp/thumbnail/${imageIsbnUrl}.jpg`
+    );
+    // console.log(item["dc:title"]._text);
+  };
+
   return (
     <>
       <div>
@@ -29,12 +44,17 @@ const ApiBookInput = (bookData: any) => {
                       <>画像がありません</>
                     )}
                   </div>
+                  <div>
+                    <Button onClick={() => handleSelectItem(filterbook)}>
+                      選択
+                    </Button>
+                  </div>
                 </div>
               </div>
             );
           })
         ) : (
-          <>結果がありません</>
+          <></>
         )}
       </div>
     </>

@@ -26,9 +26,7 @@ const LibrayForm = () => {
   });
   const apiBookJson = JSON.parse(convertedApiBook);
   const apiBookData = apiBookJson.rss && apiBookJson.rss.channel.item;
-  //   console.log(apiBookData);
 
-  //   console.log(apiBook);
   return (
     <>
       {" "}
@@ -56,13 +54,7 @@ const LibrayForm = () => {
           </div>
         </Box>
       </Container>
-      <div>
-        {apiBook ? (
-          <ApiBookInput bookData={apiBookData} />
-        ) : (
-          <>結果がありません</>
-        )}
-      </div>
+      <div>{apiBook ? <ApiBookInput bookData={apiBookData} /> : <> </>}</div>
     </>
   );
 };
